@@ -16,6 +16,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/registration")
 public class RegistrationServlet extends HttpServlet {
@@ -61,5 +62,18 @@ public class RegistrationServlet extends HttpServlet {
             resp.sendRedirect("/?errorMessage=" + encodedMessage);
         }
 
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        IWebExchange webExchange = JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp);
+
+        WebContext context = new WebContext(webExchange);
+
+        List<Registration> registrations = registrationService.findAll();
+
+        context.setVariable("registrations", registrations);
+
+        springTemplateEngine.process("listRegistrations", context, resp.getWriter());
     }
 }

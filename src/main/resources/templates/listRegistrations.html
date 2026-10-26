@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Registrations</title>
+</head>
+<body>
+
+<h1>List of Registrations</h1>
+
+<div th:each="registration : ${registrations}">
+    <p th:text="'Name: ' + ${registration.participantName} + ', Email: ' + ${registration.participantEmail} + ' Workshop: ' + ${registration.workshopTitle} + ' Number of seats: ' +${registration.numberOfSeats}"></p>
+</div>
+
+</body>
+</html>

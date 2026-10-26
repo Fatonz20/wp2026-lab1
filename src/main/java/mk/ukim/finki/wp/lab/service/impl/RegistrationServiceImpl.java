@@ -10,6 +10,7 @@ import mk.ukim.finki.wp.lab.service.RegistrationService;
 import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,5 +47,10 @@ public class RegistrationServiceImpl implements RegistrationService {
         Registration registration = new Registration(workshopTitle, participantName, participantEmail, numberOfSeats);
 
         return registrationRepository.save(registration);
+    }
+
+    @Override
+    public List<Registration> findAll() {
+        return registrationRepository.findAll();
     }
 }

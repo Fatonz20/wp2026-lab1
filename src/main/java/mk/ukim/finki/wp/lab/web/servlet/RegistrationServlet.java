@@ -18,7 +18,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/registration")
+@WebServlet(urlPatterns = {"/servlet/registration"})
 public class RegistrationServlet extends HttpServlet {
     private final RegistrationService registrationService;
     private final SpringTemplateEngine springTemplateEngine;

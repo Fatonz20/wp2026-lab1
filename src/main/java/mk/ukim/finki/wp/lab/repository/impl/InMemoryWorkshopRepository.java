@@ -22,8 +22,33 @@ public class InMemoryWorkshopRepository implements WorkshopRepository {
 
     @Override
     public List<Workshop> search(String text, Double maxPrice) {
-        return DataHolder.workshops.stream().filter(workshop -> text == null || text.isEmpty()
-                || workshop.getTitle().toLowerCase().contains(text.toLowerCase()) ||
-                workshop.getCategory().toLowerCase().contains(text.toLowerCase())).filter(workshop -> maxPrice == null || workshop.getPrice() <= maxPrice).toList();
+        return DataHolder.workshops.stream()
+                .filter(w -> text == null || text.isEmpty()
+                        || w.getTitle().toLowerCase().contains(text.toLowerCase())
+                        || w.getCategory().toLowerCase().contains(text.toLowerCase()))
+                .filter(w -> maxPrice == null || w.getPrice() <= maxPrice)
+                .toList();
+    }
+
+    @Override
+    public Optional<Workshop> findById(Long id) {
+        return DataHolder.workshops.stream().filter(w -> w.getId().equals(id)).findFirst();
+    }
+
+    @Override
+    public Workshop save(Workshop workshop) {
+        Optional<Workshop> existingWorkshop = findById(workshop.getId());
+
+        if (existingWorkshop.isPresent()) {
+            DataHolder.workshops.remove(existingWorkshop.get());
+        }
+
+        DataHolder.workshops.add(workshop);
+        return workshop;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        DataHolder.workshops.removeIf(w -> w.getId().equals(id));
     }
 }

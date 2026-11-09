@@ -128,4 +128,11 @@ public class WorkshopController {
 
         return "workshop-form";
     }
+
+    @PostMapping("/rating/{id}")
+    public String rateWorkshop(@PathVariable Long id, @RequestParam double ratingNumber) {
+        workshopService.saveRating(id, ratingNumber);
+
+        return "redirect:/workshops";
+    }
 }

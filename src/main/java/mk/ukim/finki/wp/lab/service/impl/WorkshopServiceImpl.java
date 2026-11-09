@@ -93,4 +93,18 @@ public class WorkshopServiceImpl implements WorkshopService {
     public void deleteById(Long id) {
         workshopRepository.deleteById(id);
     }
+
+    @Override
+    public void saveRating(Long id, double rating) {
+        Workshop workshop = workshopRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("WorkshopNotFound"));
+
+        int oldCount = workshop.getNumberOfRatings();
+        double newAverage = (workshop.getRating() * oldCount + rating) / (oldCount + 1);
+
+        workshop.setNumberOfRatings(++oldCount);
+
+        workshop.setRating(newAverage);
+
+        workshopRepository.save(workshop);
+    }
 }

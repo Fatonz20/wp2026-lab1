@@ -19,4 +19,6 @@ public interface WorkshopService {
                     Integer capacity, Long instructorId);
 
     void deleteById(Long id);
+
+    void saveRating(Long id, double ratingNumber);
 }

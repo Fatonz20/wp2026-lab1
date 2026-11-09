@@ -88,6 +88,13 @@
             <button type="submit">Delete</button>
         </form>
 
+        <form th:action="@{/rating/{id}(id=${workshop.id})}" method="POST">
+            <label>
+                <input type="number" name="ratingNumber">
+            </label>
+            <button type="submit" name="rateWorkshop">Rate</button>
+        </form>
+        <th:block th:text="'Rating: ' + ${workshop.rating}"></th:block>
     </div>
 
     <!-- Registration form -->
